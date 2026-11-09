@@ -107,3 +107,23 @@ h1, h2, h3, h4, h5, h6 {
 button, a, input, select, textarea {
   transition: color 150ms, background-color 150ms, border-color 150ms, box-shadow 150ms;
 }
+
+/* Responsive Navbar Controls: hides desktop links/auth on mobile, shows hamburger + sign-in */
+@media (max-width: 767px) {
+  .nav-desktop-only {
+    display: none !important;
+  }
+  .nav-mobile-only {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-desktop-only {
+    display: flex !important;
+  }
+  .nav-mobile-only {
+    display: none !important;
+  }
+}
+

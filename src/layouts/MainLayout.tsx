@@ -188,10 +188,10 @@ export default function MainLayout() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
+          {/* Desktop nav - ONLY on desktop (>= 768px) */}
           <nav
-            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
-            className="hidden md:flex"
+            className="nav-desktop-only"
+            style={{ alignItems: 'center', gap: '0.25rem' }}
             aria-label="Main Navigation"
           >
             {NAV_ITEMS.map((item) => (
@@ -215,8 +215,8 @@ export default function MainLayout() {
             ))}
           </nav>
 
-          {/* Desktop Auth */}
-          <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+          {/* Desktop Auth - ONLY on desktop (>= 768px) */}
+          <div className="nav-desktop-only" style={{ alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
             {!loading && (
               user ? (
                 <div ref={userMenuRef} style={{ position: 'relative' }}>
@@ -379,8 +379,19 @@ export default function MainLayout() {
             )}
           </div>
 
-          {/* Mobile Hamburger Button */}
-          <div className="flex md:hidden" style={{ alignItems: 'center' }}>
+          {/* Mobile Navbar Controls - ONLY on small screens (< 768px):
+              1. Logo is to the left (above)
+              2. Hamburger menu button
+              3. Sign in button */}
+          <div
+            className="nav-mobile-only"
+            style={{
+              alignItems: 'center',
+              gap: '0.5rem',
+              flexShrink: 0,
+            }}
+          >
+            {/* 2. Hamburger menu button */}
             <button
               ref={hamburgerBtnRef}
               type="button"
@@ -391,10 +402,10 @@ export default function MainLayout() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                minWidth: 44,
-                minHeight: 44,
-                width: 44,
-                height: 44,
+                minWidth: 40,
+                minHeight: 40,
+                width: 40,
+                height: 40,
                 border: '1px solid #DCD5C4',
                 borderRadius: 8,
                 backgroundColor: mobileOpen ? '#EFEADC' : '#ffffff',
@@ -403,8 +414,71 @@ export default function MainLayout() {
                 transition: 'background-color 150ms ease',
               }}
             >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
+
+            {/* 3. Sign in button (or user profile button if logged in) */}
+            {!loading && (
+              user ? (
+                <Link
+                  to="/profile"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    padding: '0.35rem 0.65rem',
+                    minHeight: 38,
+                    backgroundColor: '#17422E',
+                    color: '#ffffff',
+                    borderRadius: 8,
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    fontFamily: "'Inter', system-ui, sans-serif",
+                  }}
+                  aria-label="User profile"
+                >
+                  <span
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                      color: '#ffffff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                    }}
+                  >
+                    {user.email?.[0]?.toUpperCase() ?? <User size={12} />}
+                  </span>
+                  <span>Profile</span>
+                </Link>
+              ) : (
+                <Link
+                  to="/auth"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0.4rem 0.85rem',
+                    minHeight: 38,
+                    backgroundColor: '#17422E',
+                    color: '#ffffff',
+                    borderRadius: 8,
+                    fontSize: '0.825rem',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    fontFamily: "'Inter', system-ui, sans-serif",
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Sign in
+                </Link>
+              )
+            )}
           </div>
         </div>
 

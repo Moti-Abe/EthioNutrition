@@ -61,8 +61,33 @@ describe('Responsive Navigation & Viewport Testing', () => {
 
     const hamburger = screen.getByRole('button', { name: /Open navigation menu/i });
     expect(hamburger).toBeInTheDocument();
-    // Hamburger button container has className 'md:hidden'
-    expect(hamburger.parentElement).toHaveClass('md:hidden');
+    // Mobile controls container has className 'nav-mobile-only'
+    expect(hamburger.parentElement).toHaveClass('nav-mobile-only');
+  });
+
+  it('renders only logo, hamburger menu, and sign in button on small screens', async () => {
+    setViewportWidth(375);
+    renderAppWithRoute('/');
+
+    // 1. Logo
+    expect(screen.getAllByText('EthioNutrition')[0]).toBeInTheDocument();
+
+    // 2. Hamburger button
+    const hamburger = screen.getByRole('button', { name: /Open navigation menu/i });
+    expect(hamburger).toBeInTheDocument();
+    expect(hamburger.parentElement).toHaveClass('nav-mobile-only');
+
+    // 3. Sign in button in the mobile navbar controls (once auth loading finishes)
+    await waitFor(() => {
+      const mobileControls = hamburger.parentElement;
+      const signInLink = mobileControls?.querySelector('a[href="/auth"]');
+      expect(signInLink).toBeInTheDocument();
+      expect(signInLink).toHaveTextContent(/Sign in/i);
+    });
+
+    // Desktop nav container is marked nav-desktop-only (hidden via CSS on mobile)
+    const desktopNav = screen.getByRole('navigation', { name: /Main Navigation/i });
+    expect(desktopNav).toHaveClass('nav-desktop-only');
   });
 
   it('toggles mobile menu dropdown when hamburger button is clicked', async () => {
