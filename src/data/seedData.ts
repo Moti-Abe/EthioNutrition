@@ -3,27 +3,27 @@ import type { FoodWithNutrition, Category, FoodAlias } from '../types';
 export const SEED_CATEGORIES: Category[] = [
   {
     id: 'c0000001-0000-0000-0000-000000000001',
-    name: 'High-Protein Foods',
+    name: 'High Protein',
     slug: 'high-protein',
-    description: 'Foods rich in quality protein to support muscle repair, satiety, and active lifestyles.',
+    description: 'Foods particularly rich in protein to support muscle repair, satiety, and active lifestyles.',
     category_type: 'Macronutrient',
     is_active: true,
     sort_order: 1,
   },
   {
     id: 'c0000002-0000-0000-0000-000000000002',
-    name: 'Weight Gain Foods',
+    name: 'Weight Gain',
     slug: 'weight-gain',
-    description: 'Calorie-dense, nutrient-rich foods that aid in achieving a healthy caloric surplus.',
+    description: 'Foods suitable for people trying to gain weight or achieve a healthy caloric surplus.',
     category_type: 'Goal',
     is_active: true,
     sort_order: 2,
   },
   {
     id: 'c0000003-0000-0000-0000-000000000003',
-    name: 'Weight Loss Foods',
+    name: 'Weight Loss',
     slug: 'weight-loss',
-    description: 'Satiating, fiber-rich, or lower-calorie options to support sustainable fat loss.',
+    description: 'Foods suitable for people trying to lose weight or maintain a caloric deficit.',
     category_type: 'Goal',
     is_active: true,
     sort_order: 3,
@@ -39,9 +39,9 @@ export const SEED_CATEGORIES: Category[] = [
   },
   {
     id: 'c0000005-0000-0000-0000-000000000005',
-    name: 'Fasting Foods (Yetsom)',
+    name: 'Fasting Food (Yetsom)',
     slug: 'fasting-foods',
-    description: 'Nutritious plant-based dishes traditionally consumed during Ethiopian fasting periods.',
+    description: 'Foods suitable for Ethiopian Orthodox fasting (pure plant-based).',
     category_type: 'Dietary',
     is_active: true,
     sort_order: 5,
@@ -49,93 +49,107 @@ export const SEED_CATEGORIES: Category[] = [
 ];
 
 export const SEED_FOOD_CATEGORIES: { food_id: string; category_id: string }[] = [
-  // Injera
+  // 1. Injera (Weight Loss, Fasting, Staples)
   { food_id: 'f0000001-0000-0000-0000-000000000001', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000001-0000-0000-0000-000000000001', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000001-0000-0000-0000-000000000001', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Shiro
+  // 2. Shiro (Weight Loss, Fasting, Staples)
   { food_id: 'f0000002-0000-0000-0000-000000000002', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000002-0000-0000-0000-000000000002', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000002-0000-0000-0000-000000000002', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Misir Wot
+  // 3. Misir Wot (High Protein, Weight Loss, Fasting, Staples)
+  { food_id: 'f0000003-0000-0000-0000-000000000003', category_id: 'c0000001-0000-0000-0000-000000000001' },
   { food_id: 'f0000003-0000-0000-0000-000000000003', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000003-0000-0000-0000-000000000003', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000003-0000-0000-0000-000000000003', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Doro Wot
+  // 4. Doro Wot (High Protein, Weight Gain, Staples)
   { food_id: 'f0000004-0000-0000-0000-000000000004', category_id: 'c0000001-0000-0000-0000-000000000001' },
+  { food_id: 'f0000004-0000-0000-0000-000000000004', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000004-0000-0000-0000-000000000004', category_id: 'c0000004-0000-0000-0000-000000000004' },
-  // Tibs
+  // 5. Tibs (High Protein, Weight Gain, Staples)
   { food_id: 'f0000005-0000-0000-0000-000000000005', category_id: 'c0000001-0000-0000-0000-000000000001' },
+  { food_id: 'f0000005-0000-0000-0000-000000000005', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000005-0000-0000-0000-000000000005', category_id: 'c0000004-0000-0000-0000-000000000004' },
-  // Kitfo
+  // 6. Kitfo (High Protein, Weight Gain, Staples)
   { food_id: 'f0000006-0000-0000-0000-000000000006', category_id: 'c0000001-0000-0000-0000-000000000001' },
+  { food_id: 'f0000006-0000-0000-0000-000000000006', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000006-0000-0000-0000-000000000006', category_id: 'c0000004-0000-0000-0000-000000000004' },
-  // Gomen
+  // 7. Gomen (Weight Loss, Fasting, Staples)
   { food_id: 'f0000007-0000-0000-0000-000000000007', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000007-0000-0000-0000-000000000007', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000007-0000-0000-0000-000000000007', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Kinche
+  // 8. Kinche (Weight Loss, Fasting, Staples)
   { food_id: 'f0000008-0000-0000-0000-000000000008', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000008-0000-0000-0000-000000000008', category_id: 'c0000004-0000-0000-0000-000000000004' },
-  // Chechebsa
+  { food_id: 'f0000008-0000-0000-0000-000000000008', category_id: 'c0000005-0000-0000-0000-000000000005' },
+  // 9. Chechebsa (Weight Gain, Staples)
   { food_id: 'f0000009-0000-0000-0000-000000000009', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000009-0000-0000-0000-000000000009', category_id: 'c0000004-0000-0000-0000-000000000004' },
-  // Firfir
+  // 10. Firfir (Weight Loss, Fasting, Staples)
+  { food_id: 'f0000010-0000-0000-0000-000000000010', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000010-0000-0000-0000-000000000010', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000010-0000-0000-0000-000000000010', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Besso
+  // 11. Besso (Weight Gain, Fasting, Staples)
   { food_id: 'f0000011-0000-0000-0000-000000000011', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000011-0000-0000-0000-000000000011', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000011-0000-0000-0000-000000000011', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Nifro
+  // 12. Nifro (Weight Gain, Fasting, Staples)
+  { food_id: 'f0000012-0000-0000-0000-000000000012', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000012-0000-0000-0000-000000000012', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000012-0000-0000-0000-000000000012', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Teff
+  // 13. Teff (High Protein, Weight Gain, Fasting, Staples)
   { food_id: 'f0000013-0000-0000-0000-000000000013', category_id: 'c0000001-0000-0000-0000-000000000001' },
   { food_id: 'f0000013-0000-0000-0000-000000000013', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000013-0000-0000-0000-000000000013', category_id: 'c0000004-0000-0000-0000-000000000004' },
   { food_id: 'f0000013-0000-0000-0000-000000000013', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Chickpeas
+  // 14. Chickpeas (High Protein, Weight Gain, Fasting)
   { food_id: 'f0000014-0000-0000-0000-000000000014', category_id: 'c0000001-0000-0000-0000-000000000001' },
   { food_id: 'f0000014-0000-0000-0000-000000000014', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000014-0000-0000-0000-000000000014', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Lentils
+  // 15. Lentils (High Protein, Weight Gain, Fasting)
   { food_id: 'f0000015-0000-0000-0000-000000000015', category_id: 'c0000001-0000-0000-0000-000000000001' },
   { food_id: 'f0000015-0000-0000-0000-000000000015', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000015-0000-0000-0000-000000000015', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Eggs
+  // 16. Eggs (High Protein, Weight Gain)
   { food_id: 'f0000016-0000-0000-0000-000000000016', category_id: 'c0000001-0000-0000-0000-000000000001' },
-  { food_id: 'f0000016-0000-0000-0000-000000000016', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Milk
-  { food_id: 'f0000017-0000-0000-0000-000000000017', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Yogurt
+  { food_id: 'f0000016-0000-0000-0000-000000000016', category_id: 'c0000002-0000-0000-0000-000000000002' },
+  // 17. Milk (High Protein, Weight Gain)
+  { food_id: 'f0000017-0000-0000-0000-000000000017', category_id: 'c0000001-0000-0000-0000-000000000001' },
+  { food_id: 'f0000017-0000-0000-0000-000000000017', category_id: 'c0000002-0000-0000-0000-000000000002' },
+  // 18. Yogurt (High Protein, Weight Loss)
+  { food_id: 'f0000018-0000-0000-0000-000000000018', category_id: 'c0000001-0000-0000-0000-000000000001' },
   { food_id: 'f0000018-0000-0000-0000-000000000018', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Rice
-  { food_id: 'f0000019-0000-0000-0000-000000000019', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Potatoes
+  // 19. Rice (Weight Gain, Fasting)
+  { food_id: 'f0000019-0000-0000-0000-000000000019', category_id: 'c0000002-0000-0000-0000-000000000002' },
+  { food_id: 'f0000019-0000-0000-0000-000000000019', category_id: 'c0000005-0000-0000-0000-000000000005' },
+  // 20. Potatoes (Weight Loss, Fasting)
   { food_id: 'f0000020-0000-0000-0000-000000000020', category_id: 'c0000003-0000-0000-0000-000000000003' },
   { food_id: 'f0000020-0000-0000-0000-000000000020', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Bananas
-  { food_id: 'f0000021-0000-0000-0000-000000000021', category_id: 'c0000003-0000-0000-0000-000000000003' },
+  // 21. Bananas (Weight Gain, Fasting)
+  { food_id: 'f0000021-0000-0000-0000-000000000021', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000021-0000-0000-0000-000000000021', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Avocados
-  { food_id: 'f0000022-0000-0000-0000-000000000022', category_id: 'c0000003-0000-0000-0000-000000000003' },
+  // 22. Avocados (Weight Gain, Fasting)
+  { food_id: 'f0000022-0000-0000-0000-000000000022', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000022-0000-0000-0000-000000000022', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Peanuts
+  // 23. Peanuts (High Protein, Weight Gain, Fasting)
   { food_id: 'f0000023-0000-0000-0000-000000000023', category_id: 'c0000001-0000-0000-0000-000000000001' },
   { food_id: 'f0000023-0000-0000-0000-000000000023', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000023-0000-0000-0000-000000000023', category_id: 'c0000005-0000-0000-0000-000000000005' },
-  // Chicken Breast
+  // 24. Chicken Breast (High Protein, Weight Loss, Weight Gain)
   { food_id: 'f0000024-0000-0000-0000-000000000024', category_id: 'c0000001-0000-0000-0000-000000000001' },
+  { food_id: 'f0000024-0000-0000-0000-000000000024', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000024-0000-0000-0000-000000000024', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Lean Beef
+  // 25. Lean Beef (High Protein, Weight Loss, Weight Gain)
   { food_id: 'f0000025-0000-0000-0000-000000000025', category_id: 'c0000001-0000-0000-0000-000000000001' },
+  { food_id: 'f0000025-0000-0000-0000-000000000025', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000025-0000-0000-0000-000000000025', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Pasta
-  { food_id: 'f0000026-0000-0000-0000-000000000026', category_id: 'c0000003-0000-0000-0000-000000000003' },
-  // Bread
+  // 26. Pasta (Weight Gain, Fasting)
+  { food_id: 'f0000026-0000-0000-0000-000000000026', category_id: 'c0000002-0000-0000-0000-000000000002' },
+  { food_id: 'f0000026-0000-0000-0000-000000000026', category_id: 'c0000005-0000-0000-0000-000000000005' },
+  // 27. Bread (Weight Gain, Fasting, Staples)
   { food_id: 'f0000027-0000-0000-0000-000000000027', category_id: 'c0000002-0000-0000-0000-000000000002' },
   { food_id: 'f0000027-0000-0000-0000-000000000027', category_id: 'c0000004-0000-0000-0000-000000000004' },
+  { food_id: 'f0000027-0000-0000-0000-000000000027', category_id: 'c0000005-0000-0000-0000-000000000005' },
 ];
 
 export const SEED_ALIASES: FoodAlias[] = [

@@ -16,11 +16,11 @@ DELETE FROM public.foods;
 -- -----------------------------------------------------------------------------
 INSERT INTO public.categories (id, name, slug, description, category_type, is_active, sort_order)
 VALUES
-  ('c0000001-0000-0000-0000-000000000001', 'High-Protein Foods', 'high-protein', 'Foods rich in quality protein to support muscle repair, satiety, and active lifestyles.', 'Macronutrient', true, 1),
-  ('c0000002-0000-0000-0000-000000000002', 'Weight Gain Foods', 'weight-gain', 'Calorie-dense, nutrient-rich foods that aid in achieving a healthy caloric surplus.', 'Goal', true, 2),
-  ('c0000003-0000-0000-0000-000000000003', 'Weight Loss Foods', 'weight-loss', 'Satiating, fiber-rich, or lower-calorie options to support sustainable fat loss.', 'Goal', true, 3),
+  ('c0000001-0000-0000-0000-000000000001', 'High Protein', 'high-protein', 'Foods particularly rich in protein to support muscle repair, satiety, and active lifestyles.', 'Macronutrient', true, 1),
+  ('c0000002-0000-0000-0000-000000000002', 'Weight Gain', 'weight-gain', 'Foods suitable for people trying to gain weight or achieve a healthy caloric surplus.', 'Goal', true, 2),
+  ('c0000003-0000-0000-0000-000000000003', 'Weight Loss', 'weight-loss', 'Foods suitable for people trying to lose weight or maintain a caloric deficit.', 'Goal', true, 3),
   ('c0000004-0000-0000-0000-000000000004', 'Traditional Staples', 'traditional-staples', 'Foundational Ethiopian grains, stews, flatbreads, and heritage dishes.', 'Cuisine', true, 4),
-  ('c0000005-0000-0000-0000-000000000005', 'Fasting Foods (Yetsom)', 'fasting-foods', 'Nutritious plant-based dishes traditionally consumed during Ethiopian fasting periods.', 'Dietary', true, 5);
+  ('c0000005-0000-0000-0000-000000000005', 'Fasting Food (Yetsom)', 'fasting-foods', 'Foods suitable for Ethiopian Orthodox fasting (pure plant-based).', 'Dietary', true, 5);
 
 -- -----------------------------------------------------------------------------
 -- CLASSIFICATION RULES
@@ -740,14 +740,16 @@ VALUES
   ('f0000015-0000-0000-0000-000000000015', 'c0000002-0000-0000-0000-000000000002'),
   ('f0000015-0000-0000-0000-000000000015', 'c0000005-0000-0000-0000-000000000005'),
 
-  -- Eggs: High-Protein (12.6g P), Weight Loss (155 kcal)
+  -- Eggs: High-Protein (12.6g P), Weight Gain
   ('f0000016-0000-0000-0000-000000000016', 'c0000001-0000-0000-0000-000000000001'),
-  ('f0000016-0000-0000-0000-000000000016', 'c0000003-0000-0000-0000-000000000003'),
+  ('f0000016-0000-0000-0000-000000000016', 'c0000002-0000-0000-0000-000000000002'),
 
-  -- Milk: Weight Loss (61 kcal)
-  ('f0000017-0000-0000-0000-000000000017', 'c0000003-0000-0000-0000-000000000003'),
+  -- Milk: High Protein, Weight Gain
+  ('f0000017-0000-0000-0000-000000000017', 'c0000001-0000-0000-0000-000000000001'),
+  ('f0000017-0000-0000-0000-000000000017', 'c0000002-0000-0000-0000-000000000002'),
 
-  -- Yogurt (Ergo): Weight Loss (65 kcal)
+  -- Yogurt (Ergo): High Protein, Weight Loss
+  ('f0000018-0000-0000-0000-000000000018', 'c0000001-0000-0000-0000-000000000001'),
   ('f0000018-0000-0000-0000-000000000018', 'c0000003-0000-0000-0000-000000000003'),
 
   -- Rice: Weight Loss cooked (130 kcal)
@@ -761,8 +763,8 @@ VALUES
   ('f0000021-0000-0000-0000-000000000021', 'c0000003-0000-0000-0000-000000000003'),
   ('f0000021-0000-0000-0000-000000000021', 'c0000005-0000-0000-0000-000000000005'),
 
-  -- Avocados: Weight Loss / Nutrient Dense (160 kcal), Fasting Food
-  ('f0000022-0000-0000-0000-000000000022', 'c0000003-0000-0000-0000-000000000003'),
+  -- Avocados: Weight Gain, Fasting Food
+  ('f0000022-0000-0000-0000-000000000022', 'c0000002-0000-0000-0000-000000000002'),
   ('f0000022-0000-0000-0000-000000000022', 'c0000005-0000-0000-0000-000000000005'),
 
   -- Peanuts: High-Protein (24.4g P), Weight Gain (587 kcal), Fasting Food
@@ -770,12 +772,14 @@ VALUES
   ('f0000023-0000-0000-0000-000000000023', 'c0000002-0000-0000-0000-000000000002'),
   ('f0000023-0000-0000-0000-000000000023', 'c0000005-0000-0000-0000-000000000005'),
 
-  -- Chicken Breast: High-Protein (31.0g P), Weight Loss (165 kcal ~ lean)
+  -- Chicken Breast: High-Protein (31.0g P), Weight Loss, Weight Gain
   ('f0000024-0000-0000-0000-000000000024', 'c0000001-0000-0000-0000-000000000001'),
+  ('f0000024-0000-0000-0000-000000000024', 'c0000002-0000-0000-0000-000000000002'),
   ('f0000024-0000-0000-0000-000000000024', 'c0000003-0000-0000-0000-000000000003'),
 
-  -- Lean Beef: High-Protein (21.5g P), Weight Loss (143 kcal raw)
+  -- Lean Beef: High-Protein (21.5g P), Weight Loss, Weight Gain
   ('f0000025-0000-0000-0000-000000000025', 'c0000001-0000-0000-0000-000000000001'),
+  ('f0000025-0000-0000-0000-000000000025', 'c0000002-0000-0000-0000-000000000002'),
   ('f0000025-0000-0000-0000-000000000025', 'c0000003-0000-0000-0000-000000000003'),
 
   -- Pasta: Weight Loss cooked (158 kcal)

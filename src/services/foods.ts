@@ -24,14 +24,14 @@ function filterLocalFoods(filters: Partial<FoodFilters> = {}): {
     results = results.filter((f) => f.food_group === foodGroup);
   }
 
-  // Category filter with strict AND logic
+  // Category filter with OR logic (food matches if it belongs to ANY selected category)
   if (categoryIds.length > 0) {
     results = results.filter((f) => {
       const foodCatIds = new Set(
         SEED_FOOD_CATEGORIES.filter((fc) => fc.food_id === f.id).map((fc) => fc.category_id)
       );
-      // Must contain ALL selected categories (AND logic)
-      return categoryIds.every((cid) => foodCatIds.has(cid));
+      // Must contain at least one selected category (OR logic)
+      return categoryIds.some((cid) => foodCatIds.has(cid));
     });
   }
 
@@ -89,21 +89,23 @@ export async function fetchFoods(filters: Partial<FoodFilters> = {}): Promise<{
       pageSize = 24,
     } = filters;
 
-    // If filtering by categories (AND logic), get food IDs first
+    // If filtering by categories (OR logic), get food IDs belonging to at least one selected category
     let allowedFoodIds: string[] | null = null;
     if (categoryIds.length > 0) {
-      const sets = await Promise.all(
-        categoryIds.map(async (catId) => {
-          const { data } = await supabase
-            .from('food_categories')
-            .select('food_id')
-            .eq('category_id', catId);
-          return new Set((data ?? []).map((r: { food_id: string }) => r.food_id));
-        })
+      const { data: catRows, error: catError } = await supabase
+        .from('food_categories')
+        .select('food_id')
+        .in('category_id', categoryIds);
+
+      if (catError) {
+        console.warn('Failed to query food_categories:', catError);
+        return filterLocalFoods(filters);
+      }
+
+      const matchingIds = Array.from(
+        new Set((catRows ?? []).map((r: { food_id: string }) => r.food_id))
       );
-      // Intersection of all sets (AND logic)
-      const intersection = sets.reduce((acc, s) => new Set([...acc].filter((id) => s.has(id))));
-      allowedFoodIds = [...intersection];
+      allowedFoodIds = matchingIds;
       if (allowedFoodIds.length === 0) {
         return { foods: [], total: 0 };
       }
