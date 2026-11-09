@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: #F7F4EC;
+  --color-background-secondary: #EFEADC;
+  --color-primary: #17422E;
+  --color-primary-dark: #0f2e1f;
+  --color-primary-light: #1e5438;
+  --color-secondary-text: #4A5B50;
+  --color-border: #DCD5C4;
+  --color-accent: #C46A3F;
+  --color-accent-light: #d4845a;
+  --color-white: #ffffff;
+  --color-gray-50: #fafaf8;
+  --color-gray-100: #f4f1e9;
+  --color-gray-200: #e8e3d8;
+  --color-gray-300: #d6cfbf;
+  --color-gray-400: #b5aa95;
+  --color-gray-500: #8a7f6a;
+  --color-gray-600: #6a6050;
+  --color-gray-700: #4e4639;
+  --color-gray-800: #33302a;
+  --color-gray-900: #1a1815;
+  --color-success: #2d7a4f;
+  --color-warning: #b87d2a;
+  --color-error: #b03535;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0 1px 3px rgba(23, 66, 46, 0.06), 0 1px 2px rgba(23, 66, 46, 0.04);
+  --shadow-dropdown: 0 4px 16px rgba(23, 66, 46, 0.1);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.25;
+  color: var(--color-primary);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-400);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth transitions for interactive elements */
+button, a, input, select, textarea {
+  transition: color 150ms, background-color 150ms, border-color 150ms, box-shadow 150ms;
+}
