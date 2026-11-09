@@ -6,7 +6,6 @@ import { AuthProvider } from '../context/AuthContext';
 import { MealBuilderProvider } from '../context/MealBuilderContext';
 import HomePage from '../pages/HomePage';
 import FoodsPage from '../pages/FoodsPage';
-import CategoriesPage from '../pages/CategoriesPage';
 import BuildMealPage from '../pages/BuildMealPage';
 import YourMealPage from '../pages/YourMealPage';
 import AuthPage from '../pages/AuthPage';
@@ -44,16 +43,6 @@ describe('All Pages Rendering', () => {
     await waitFor(() => {
       expect(screen.getByRole('heading', { name: 'Foods' })).toBeInTheDocument();
     });
-  });
-
-  it('renders CategoriesPage without crashing', async () => {
-    renderWithProviders(<CategoriesPage />);
-    await waitFor(
-      () => {
-        expect(screen.getByText(/Explore Categories/i)).toBeInTheDocument();
-      },
-      { timeout: 5000 }
-    );
   });
 
   it('renders BuildMealPage without crashing', () => {

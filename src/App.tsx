@@ -6,8 +6,6 @@ import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import FoodsPage from './pages/FoodsPage';
 import FoodDetailPage from './pages/FoodDetailPage';
-import CategoriesPage from './pages/CategoriesPage';
-import CategoryDetailPage from './pages/CategoryDetailPage';
 import BuildMealPage from './pages/BuildMealPage';
 import YourMealPage from './pages/YourMealPage';
 import AuthPage from './pages/AuthPage';
@@ -35,8 +33,8 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/foods" element={<FoodsPage />} />
                 <Route path="/foods/:slug" element={<FoodDetailPage />} />
-                <Route path="/categories" element={<CategoriesPage />} />
-                <Route path="/categories/:slug" element={<CategoryDetailPage />} />
+                <Route path="/categories" element={<Navigate to="/foods" replace />} />
+                <Route path="/categories/*" element={<Navigate to="/foods" replace />} />
                 <Route path="/build" element={<BuildMealPage />} />
                 <Route
                   path="/meal"

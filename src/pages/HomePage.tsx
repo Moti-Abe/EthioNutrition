@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Utensils, BarChart3, BookOpen, TrendingUp } from 'lucide-react';
+import { ArrowRight, Utensils, BarChart3, TrendingUp } from 'lucide-react';
 
 const features = [
   {
@@ -11,16 +11,8 @@ const features = [
     cta: 'Browse Foods',
   },
   {
-    icon: BookOpen,
-    title: 'Explore Categories',
-    description:
-      'Discover high-protein, weight gain, and weight loss foods organized for your nutritional goals.',
-    href: '/categories',
-    cta: 'View Categories',
-  },
-  {
     icon: BarChart3,
-    title: 'Build a Meal',
+    title: 'Build Meal',
     description:
       'Compose custom meals from any foods, adjust portions, and see real-time nutritional totals.',
     href: '/build',
@@ -28,7 +20,7 @@ const features = [
   },
   {
     icon: TrendingUp,
-    title: 'Track Daily Intake',
+    title: 'Your Meals',
     description:
       'Log what you eat each day, monitor progress against personal targets, and stay on track.',
     href: '/meal',
@@ -132,7 +124,7 @@ export default function HomePage() {
             {[
               { value: '50+', label: 'Ethiopian Foods' },
               { value: '100+', label: 'Nutrition Records' },
-              { value: '3', label: 'Browsing Categories' },
+              { value: '100%', label: 'Verified Nutrition' },
               { value: 'Free', label: 'Always Free' },
             ].map((stat) => (
               <div key={stat.label}>
@@ -184,8 +176,8 @@ export default function HomePage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '20px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '24px',
             }}
           >
             {features.map((feature) => (

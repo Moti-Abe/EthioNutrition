@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { fetchFoods, fetchFoodGroups } from '../services/foods';
-import { fetchCategories } from '../services/categories';
 import FoodCard from '../components/food/FoodCard';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import EmptyState from '../components/ui/EmptyState';
@@ -32,11 +31,6 @@ export default function FoodsPage() {
   const { data: foodGroups = [] } = useQuery({
     queryKey: ['foodGroups'],
     queryFn: fetchFoodGroups,
-  });
-
-  const { data: categories = [] } = useQuery({
-    queryKey: ['categories'],
-    queryFn: fetchCategories,
   });
 
   const foods = data?.foods ?? [];
@@ -208,38 +202,7 @@ export default function FoodsPage() {
             </div>
           </div>
 
-          <div>
-            <label style={{ fontSize: '12px', fontWeight: 600, color: '#4A5B50', display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Categories
-            </label>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => {
-                    const ids = filters.categoryIds.includes(cat.id)
-                      ? filters.categoryIds.filter((id) => id !== cat.id)
-                      : [...filters.categoryIds, cat.id];
-                    updateFilter('categoryIds', ids);
-                  }}
-                  style={{
-                    padding: '5px 12px',
-                    borderRadius: '999px',
-                    border: '1px solid',
-                    borderColor: filters.categoryIds.includes(cat.id) ? '#C46A3F' : '#DCD5C4',
-                    background: filters.categoryIds.includes(cat.id) ? '#C46A3F' : 'white',
-                    color: filters.categoryIds.includes(cat.id) ? 'white' : '#4A5B50',
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {(filters.foodGroup || filters.categoryIds.length > 0) && (
+          {filters.foodGroup && (
             <button
               onClick={() => setFilters((f) => ({ ...f, foodGroup: '', categoryIds: [], page: 1 }))}
               style={{
@@ -262,7 +225,7 @@ export default function FoodsPage() {
       )}
 
       {/* Active filter chips */}
-      {(filters.search || filters.foodGroup || filters.categoryIds.length > 0) && (
+      {(filters.search || filters.foodGroup) && (
         <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
           <span style={{ fontSize: '13px', color: '#4A5B50' }}>Showing results for:</span>
           {filters.search && (

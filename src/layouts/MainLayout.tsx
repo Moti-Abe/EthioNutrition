@@ -5,9 +5,8 @@ import { useAuth } from '../context/AuthContext';
 
 const NAV_ITEMS = [
   { label: 'Foods', to: '/foods' },
-  { label: 'Explore Categories', to: '/categories' },
-  { label: 'Build a Meal', to: '/build' },
-  { label: 'Your Meal', to: '/meal' },
+  { label: 'Build Meal', to: '/build' },
+  { label: 'Your Meals', to: '/meal' },
 ];
 
 export default function MainLayout() {
@@ -578,7 +577,7 @@ VITE_SUPABASE_ANON_KEY=<your-anon-key>`}
               <div>
                 <strong style={{ color: '#17422E' }}>4. Adding New Foods as Administrator</strong>
                 <p style={{ margin: '4px 0 0' }}>
-                  Whenever you add foods directly in the Supabase Table Editor or SQL Editor, they will instantly appear across Foods, Categories, and Meal Builder without redeploying!
+                  Whenever you add foods directly in the Supabase Table Editor or SQL Editor, they will instantly appear across Foods and Meal Builder without redeploying!
                 </p>
               </div>
             </div>
