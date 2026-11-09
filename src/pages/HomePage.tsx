@@ -51,12 +51,12 @@ export default function HomePage() {
               marginBottom: '24px',
             }}
           >
-            Ethiopian Nutrition Database
+            YOUR NUTRITION. YOUR TRANSFORMATION.
           </span>
           <h1
             style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', fontWeight: 600, lineHeight: 1.2, marginBottom: '20px' }}
           >
-            Know Your Food,<br />Fuel Your Life
+            Know What You Eat,<br />Build Your Dream physique 
           </h1>
           <p
             style={{
