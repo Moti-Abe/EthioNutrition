@@ -34,7 +34,7 @@ export default function HomePage() {
       {/* Hero */}
       <section
         style={{ background: 'linear-gradient(135deg, #17422E 0%, #1e5438 100%)' }}
-        className="py-24 px-6 text-white"
+        className="py-14 sm:py-20 md:py-24 px-4 sm:px-6 text-white"
       >
         <div className="max-w-4xl mx-auto text-center">
           <span
@@ -43,28 +43,34 @@ export default function HomePage() {
               border: '1px solid rgba(196,106,63,0.4)',
               color: '#e8956a',
               borderRadius: '999px',
-              padding: '4px 16px',
-              fontSize: '13px',
+              padding: '4px 14px',
+              fontSize: 'clamp(11px, 2.5vw, 13px)',
               fontFamily: 'Inter, sans-serif',
               fontWeight: 500,
               display: 'inline-block',
-              marginBottom: '24px',
+              marginBottom: '18px',
             }}
           >
             YOUR NUTRITION. YOUR TRANSFORMATION.
           </span>
           <h1
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', fontWeight: 600, lineHeight: 1.2, marginBottom: '20px' }}
+            style={{
+              fontFamily: 'Playfair Display, serif',
+              fontSize: 'clamp(1.8rem, 5vw, 3.25rem)',
+              fontWeight: 600,
+              lineHeight: 1.25,
+              marginBottom: '16px',
+            }}
           >
             Know What You Eat,<br />Build Your Dream physique 
           </h1>
           <p
             style={{
               color: 'rgba(255,255,255,0.78)',
-              fontSize: '1.125rem',
+              fontSize: 'clamp(0.95rem, 2vw, 1.125rem)',
               maxWidth: '580px',
-              margin: '0 auto 36px',
-              lineHeight: 1.7,
+              margin: '0 auto 28px',
+              lineHeight: 1.6,
               fontFamily: 'Inter, sans-serif',
             }}
           >
@@ -77,7 +83,7 @@ export default function HomePage() {
               style={{
                 background: '#C46A3F',
                 color: 'white',
-                padding: '12px 28px',
+                padding: '12px 24px',
                 borderRadius: '8px',
                 fontFamily: 'Inter, sans-serif',
                 fontWeight: 600,
@@ -85,7 +91,11 @@ export default function HomePage() {
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: '8px',
+                minHeight: '44px',
+                flex: '1 1 200px',
+                maxWidth: '260px',
               }}
             >
               Explore Foods <ArrowRight size={16} />
@@ -96,12 +106,18 @@ export default function HomePage() {
                 background: 'rgba(255,255,255,0.1)',
                 border: '1px solid rgba(255,255,255,0.3)',
                 color: 'white',
-                padding: '12px 28px',
+                padding: '12px 24px',
                 borderRadius: '8px',
                 fontFamily: 'Inter, sans-serif',
                 fontWeight: 500,
                 fontSize: '15px',
                 textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '44px',
+                flex: '1 1 200px',
+                maxWidth: '260px',
               }}
             >
               Build a Meal
@@ -112,12 +128,12 @@ export default function HomePage() {
 
       {/* Stats bar */}
       <section style={{ background: '#EFEADC', borderBottom: '1px solid #DCD5C4' }}>
-        <div className="max-w-5xl mx-auto px-6 py-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-5 sm:py-6">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))',
+              gap: '16px',
               textAlign: 'center',
             }}
           >
@@ -131,7 +147,7 @@ export default function HomePage() {
                 <div
                   style={{
                     fontFamily: 'Playfair Display, serif',
-                    fontSize: '1.75rem',
+                    fontSize: 'clamp(1.4rem, 3vw, 1.75rem)',
                     fontWeight: 600,
                     color: '#17422E',
                   }}
@@ -155,16 +171,16 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="py-20 px-6">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-10 sm:mb-14">
             <h2
               style={{
                 fontFamily: 'Playfair Display, serif',
-                fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+                fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
                 fontWeight: 600,
                 color: '#17422E',
-                marginBottom: '12px',
+                marginBottom: '10px',
               }}
             >
               Everything You Need
@@ -176,8 +192,8 @@ export default function HomePage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '20px',
             }}
           >
             {features.map((feature) => (
@@ -191,7 +207,7 @@ export default function HomePage() {
                     background: 'white',
                     border: '1px solid #DCD5C4',
                     borderRadius: '12px',
-                    padding: '28px',
+                    padding: 'clamp(1.25rem, 3vw, 1.75rem)',
                     height: '100%',
                     cursor: 'pointer',
                     transition: 'border-color 150ms, box-shadow 150ms',
@@ -262,12 +278,12 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: '#EFEADC', borderTop: '1px solid #DCD5C4' }} className="py-16 px-6">
+      <section style={{ background: '#EFEADC', borderTop: '1px solid #DCD5C4' }} className="py-12 sm:py-16 px-4 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2
             style={{
               fontFamily: 'Playfair Display, serif',
-              fontSize: '1.8rem',
+              fontSize: 'clamp(1.5rem, 3vw, 1.8rem)',
               fontWeight: 600,
               color: '#17422E',
               marginBottom: '12px',
@@ -289,7 +305,10 @@ export default function HomePage() {
               fontWeight: 600,
               fontSize: '15px',
               textDecoration: 'none',
-              display: 'inline-block',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: '44px',
             }}
           >
             Create Free Account

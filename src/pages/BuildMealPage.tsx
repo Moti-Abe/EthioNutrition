@@ -142,13 +142,13 @@ export default function BuildMealPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Header */}
-      <div style={{ marginBottom: '2rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
         <h1
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
             fontWeight: 600,
             color: '#17422E',
             margin: '0 0 0.5rem',
@@ -156,7 +156,7 @@ export default function BuildMealPage() {
         >
           Build a Meal
         </h1>
-        <p style={{ color: '#4A5B50', fontSize: '1rem', margin: 0 }}>
+        <p style={{ color: '#4A5B50', fontSize: 'clamp(0.875rem, 1.5vw, 1rem)', margin: 0 }}>
           Compose your dish with accurate portion sizes, see real-time nutritional totals, and save
           or log your intake.
         </p>
@@ -165,8 +165,8 @@ export default function BuildMealPage() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+          gap: '1.5rem',
           alignItems: 'start',
         }}
       >
@@ -176,7 +176,7 @@ export default function BuildMealPage() {
             backgroundColor: '#ffffff',
             borderRadius: 14,
             border: '1px solid #DCD5C4',
-            padding: '1.5rem',
+            padding: 'clamp(1rem, 3vw, 1.5rem)',
             boxShadow: '0 1px 3px rgba(23,66,46,0.04)',
           }}
         >
@@ -480,14 +480,15 @@ export default function BuildMealPage() {
                   <span style={{ fontSize: '0.875rem', color: '#4A5B50' }}>g</span>
                 </div>
                 {/* Quick gram buttons */}
-                <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.5rem' }}>
+                <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
                   {[50, 100, 150, 200, 250, 300].map((preset) => (
                     <button
                       key={preset}
                       type="button"
                       onClick={() => setGramsInput(preset)}
                       style={{
-                        padding: '0.2rem 0.5rem',
+                        padding: '0.3rem 0.6rem',
+                        minHeight: '36px',
                         borderRadius: 4,
                         border: '1px solid #DCD5C4',
                         backgroundColor: gramsInput === preset ? '#17422E' : '#ffffff',
@@ -534,7 +535,7 @@ export default function BuildMealPage() {
               backgroundColor: '#ffffff',
               borderRadius: 14,
               border: '1px solid #DCD5C4',
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 3vw, 1.5rem)',
               boxShadow: '0 1px 3px rgba(23,66,46,0.04)',
             }}
           >
@@ -758,7 +759,7 @@ export default function BuildMealPage() {
                 backgroundColor: '#17422E',
                 color: '#ffffff',
                 borderRadius: 14,
-                padding: '1.5rem',
+                padding: 'clamp(1rem, 3vw, 1.5rem)',
                 boxShadow: '0 4px 16px rgba(23,66,46,0.15)',
               }}
             >
@@ -768,12 +769,14 @@ export default function BuildMealPage() {
                   justifyContent: 'space-between',
                   alignItems: 'baseline',
                   marginBottom: '1rem',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem',
                 }}
               >
                 <h3
                   style={{
                     fontFamily: "'Playfair Display', Georgia, serif",
-                    fontSize: '1.25rem',
+                    fontSize: 'clamp(1.1rem, 2.5vw, 1.25rem)',
                     fontWeight: 600,
                     margin: 0,
                     color: '#ffffff',
@@ -790,8 +793,8 @@ export default function BuildMealPage() {
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '0.75rem',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 65px), 1fr))',
+                  gap: '0.5rem',
                   marginBottom: '1.25rem',
                   textAlign: 'center',
                 }}
@@ -800,53 +803,53 @@ export default function BuildMealPage() {
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
                     borderRadius: 8,
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.65rem 0.35rem',
                     border: '1px solid rgba(255,255,255,0.15)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'clamp(1.05rem, 3vw, 1.25rem)', fontWeight: 700, color: '#ffffff' }}>
                     {formatNutrient(totals.calories_kcal, 0)}
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Calories</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Calories</div>
                 </div>
                 <div
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
                     borderRadius: 8,
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.65rem 0.35rem',
                     border: '1px solid rgba(255,255,255,0.15)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#e8956a' }}>
+                  <div style={{ fontSize: 'clamp(1.05rem, 3vw, 1.25rem)', fontWeight: 700, color: '#e8956a' }}>
                     {formatNutrient(totals.protein_g, 1)}g
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Protein</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Protein</div>
                 </div>
                 <div
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
                     borderRadius: 8,
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.65rem 0.35rem',
                     border: '1px solid rgba(255,255,255,0.15)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'clamp(1.05rem, 3vw, 1.25rem)', fontWeight: 700, color: '#ffffff' }}>
                     {formatNutrient(totals.carbohydrates_g, 1)}g
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Carbs</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Carbs</div>
                 </div>
                 <div
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
                     borderRadius: 8,
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.65rem 0.35rem',
                     border: '1px solid rgba(255,255,255,0.15)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'clamp(1.05rem, 3vw, 1.25rem)', fontWeight: 700, color: '#ffffff' }}>
                     {formatNutrient(totals.fat_g, 1)}g
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Fat</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Fat</div>
                 </div>
               </div>
 
@@ -860,6 +863,8 @@ export default function BuildMealPage() {
                   marginBottom: '1.25rem',
                   fontSize: '0.85rem',
                   color: 'rgba(255,255,255,0.85)',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem',
                 }}
               >
                 <span>Fiber: {formatNutrient(totals.fiber_g, 1)}g</span>
@@ -872,7 +877,8 @@ export default function BuildMealPage() {
                   type="button"
                   onClick={() => setSaveModalOpen(true)}
                   style={{
-                    flex: 1,
+                    flex: '1 1 180px',
+                    minHeight: '44px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -894,7 +900,8 @@ export default function BuildMealPage() {
                   type="button"
                   onClick={() => setLogModalOpen(true)}
                   style={{
-                    flex: 1,
+                    flex: '1 1 180px',
+                    minHeight: '44px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -949,9 +956,11 @@ export default function BuildMealPage() {
             style={{
               backgroundColor: '#ffffff',
               borderRadius: 12,
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 3vw, 1.5rem)',
               maxWidth: 420,
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               border: '1px solid #DCD5C4',
               boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
             }}
@@ -1079,9 +1088,11 @@ export default function BuildMealPage() {
             style={{
               backgroundColor: '#ffffff',
               borderRadius: 12,
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 3vw, 1.5rem)',
               maxWidth: 420,
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               border: '1px solid #DCD5C4',
             }}
             onClick={(e) => e.stopPropagation()}

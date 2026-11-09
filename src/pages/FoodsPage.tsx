@@ -83,13 +83,13 @@ export default function FoodsPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <h1
           style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
             fontWeight: 600,
             color: '#17422E',
             marginBottom: '8px',
@@ -97,14 +97,14 @@ export default function FoodsPage() {
         >
           Foods
         </h1>
-        <p style={{ color: '#4A5B50', fontSize: '15px' }}>
+        <p style={{ color: '#4A5B50', fontSize: 'clamp(0.875rem, 1.5vw, 0.95rem)' }}>
           Browse {total > 0 ? `${total} foods` : 'foods'} with accurate nutritional information per 100 g.
         </p>
       </div>
 
       {/* Search + Filter controls bar */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-        <form onSubmit={handleSearch} style={{ flex: '1', minWidth: '240px', position: 'relative' }}>
+        <form onSubmit={handleSearch} style={{ flex: '1 1 200px', minWidth: '0', position: 'relative' }}>
           <Search
             size={16}
             style={{
@@ -122,6 +122,7 @@ export default function FoodsPage() {
             onChange={(e) => setSearchInput(e.target.value)}
             style={{
               width: '100%',
+              minHeight: '44px',
               padding: '10px 36px 10px 36px',
               border: '1px solid #DCD5C4',
               borderRadius: '8px',
@@ -129,6 +130,7 @@ export default function FoodsPage() {
               color: '#17422E',
               background: 'white',
               outline: 'none',
+              boxSizing: 'border-box',
             }}
           />
           {searchInput && (
@@ -144,6 +146,10 @@ export default function FoodsPage() {
                 border: 'none',
                 cursor: 'pointer',
                 color: '#4A5B50',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
               aria-label="Clear search text"
             >
@@ -158,8 +164,10 @@ export default function FoodsPage() {
           style={{
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '6px',
             padding: '10px 16px',
+            minHeight: '44px',
             border: '1px solid #DCD5C4',
             borderRadius: '8px',
             background: showFilters ? '#17422E' : 'white',
@@ -167,6 +175,7 @@ export default function FoodsPage() {
             cursor: 'pointer',
             fontSize: '14px',
             fontWeight: 500,
+            flexShrink: 0,
           }}
         >
           <SlidersHorizontal size={15} />
@@ -184,12 +193,14 @@ export default function FoodsPage() {
           }}
           style={{
             padding: '10px 12px',
+            minHeight: '44px',
             border: '1px solid #DCD5C4',
             borderRadius: '8px',
             background: 'white',
             color: '#17422E',
             fontSize: '14px',
             cursor: 'pointer',
+            flexShrink: 0,
           }}
         >
           <option value="name:asc">Name A–Z</option>
@@ -498,7 +509,7 @@ export default function FoodsPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
               gap: '20px',
               marginBottom: '32px',
             }}
@@ -516,6 +527,7 @@ export default function FoodsPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
+                flexWrap: 'wrap',
               }}
             >
               <button
@@ -523,7 +535,9 @@ export default function FoodsPage() {
                 onClick={() => setFilters((f) => ({ ...f, page: (f.page ?? 1) - 1 }))}
                 disabled={(filters.page ?? 1) <= 1}
                 style={{
-                  padding: '8px 12px',
+                  minHeight: '44px',
+                  minWidth: '44px',
+                  padding: '8px 14px',
                   border: '1px solid #DCD5C4',
                   borderRadius: '6px',
                   background: 'white',
@@ -531,6 +545,7 @@ export default function FoodsPage() {
                   opacity: (filters.page ?? 1) <= 1 ? 0.5 : 1,
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 aria-label="Previous page"
               >
@@ -544,7 +559,9 @@ export default function FoodsPage() {
                 onClick={() => setFilters((f) => ({ ...f, page: (f.page ?? 1) + 1 }))}
                 disabled={(filters.page ?? 1) >= totalPages}
                 style={{
-                  padding: '8px 12px',
+                  minHeight: '44px',
+                  minWidth: '44px',
+                  padding: '8px 14px',
                   border: '1px solid #DCD5C4',
                   borderRadius: '6px',
                   background: 'white',
@@ -552,6 +569,7 @@ export default function FoodsPage() {
                   opacity: (filters.page ?? 1) >= totalPages ? 0.5 : 1,
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                 }}
                 aria-label="Next page"
               >

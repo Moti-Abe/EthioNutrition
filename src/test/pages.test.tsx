@@ -35,7 +35,7 @@ function renderWithProviders(ui: React.ReactElement, initialRoute = '/') {
 describe('All Pages Rendering', () => {
   it('renders HomePage without crashing', () => {
     renderWithProviders(<HomePage />);
-    expect(screen.getByText(/Ethiopian Nutrition/i)).toBeInTheDocument();
+    expect(screen.getByText(/Know What You Eat/i)).toBeInTheDocument();
   });
 
   it('renders FoodsPage without crashing', async () => {

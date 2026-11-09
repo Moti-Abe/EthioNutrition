@@ -47,7 +47,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Header */}
       <div
         style={{
@@ -63,7 +63,7 @@ export default function ProfilePage() {
           <h1
             style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
+              fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)',
               fontWeight: 600,
               color: '#17422E',
               margin: '0 0 0.25rem',
@@ -71,7 +71,7 @@ export default function ProfilePage() {
           >
             Your Profile
           </h1>
-          <p style={{ color: '#4A5B50', fontSize: '0.95rem', margin: 0 }}>
+          <p style={{ color: '#4A5B50', fontSize: 'clamp(0.875rem, 1.5vw, 0.95rem)', margin: 0 }}>
             Manage your account, view your body metrics, and inspect saved meal templates.
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function ProfilePage() {
             backgroundColor: '#ffffff',
             borderRadius: 12,
             border: '1px solid #DCD5C4',
-            padding: '1.5rem',
+            padding: 'clamp(1rem, 3vw, 1.5rem)',
             boxShadow: '0 1px 3px rgba(23,66,46,0.04)',
           }}
         >
@@ -126,7 +126,7 @@ export default function ProfilePage() {
             backgroundColor: '#ffffff',
             borderRadius: 12,
             border: '1px solid #DCD5C4',
-            padding: '1.5rem',
+            padding: 'clamp(1rem, 3vw, 1.5rem)',
             boxShadow: '0 1px 3px rgba(23,66,46,0.04)',
           }}
         >
@@ -173,7 +173,7 @@ export default function ProfilePage() {
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 120px), 1fr))',
                   gap: '0.75rem',
                   marginBottom: '1.5rem',
                 }}
@@ -206,28 +206,28 @@ export default function ProfilePage() {
                   backgroundColor: '#17422E',
                   color: '#ffffff',
                   borderRadius: 10,
-                  padding: '1.25rem',
+                  padding: 'clamp(0.75rem, 2.5vw, 1.25rem)',
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '0.75rem',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 65px), 1fr))',
+                  gap: '0.5rem',
                   textAlign: 'center',
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>{targets.calories}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>kcal Target</div>
+                  <div style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: 700 }}>{targets.calories}</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>kcal Target</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#e8956a' }}>{targets.protein_g}g</div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Protein</div>
+                  <div style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: 700, color: '#e8956a' }}>{targets.protein_g}g</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Protein</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>{targets.carbs_g}g</div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Carbs</div>
+                  <div style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: 700 }}>{targets.carbs_g}g</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Carbs</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>{targets.fat_g}g</div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Fat</div>
+                  <div style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: 700 }}>{targets.fat_g}g</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Fat</div>
                 </div>
               </div>
             </div>
@@ -260,7 +260,7 @@ export default function ProfilePage() {
             backgroundColor: '#ffffff',
             borderRadius: 12,
             border: '1px solid #DCD5C4',
-            padding: '1.5rem',
+            padding: 'clamp(1rem, 3vw, 1.5rem)',
             boxShadow: '0 1px 3px rgba(23,66,46,0.04)',
           }}
         >

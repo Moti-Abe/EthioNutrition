@@ -258,7 +258,7 @@ export default function YourMealPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Date Navigation Bar */}
       <div
         style={{
@@ -271,7 +271,7 @@ export default function YourMealPage() {
           border: '1px solid #DCD5C4',
           marginBottom: '2rem',
           flexWrap: 'wrap',
-          gap: '1rem',
+          gap: '0.75rem',
         }}
       >
         <button
@@ -279,8 +279,10 @@ export default function YourMealPage() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: 6,
-            padding: '0.4rem 0.85rem',
+            padding: '0.5rem 0.85rem',
+            minHeight: '40px',
             borderRadius: 8,
             border: '1px solid #DCD5C4',
             backgroundColor: '#F7F4EC',
@@ -295,7 +297,7 @@ export default function YourMealPage() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textAlign: 'center' }}>
           <Calendar size={18} color="#C46A3F" />
-          <span style={{ fontWeight: 600, color: '#17422E', fontSize: '1rem' }}>
+          <span style={{ fontWeight: 600, color: '#17422E', fontSize: 'clamp(0.9rem, 2.5vw, 1rem)' }}>
             {formatDisplayDate(currentDate)}
           </span>
           {isToday && (
@@ -321,8 +323,10 @@ export default function YourMealPage() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: 6,
-            padding: '0.4rem 0.85rem',
+            padding: '0.5rem 0.85rem',
+            minHeight: '40px',
             borderRadius: 8,
             border: '1px solid #DCD5C4',
             backgroundColor: '#F7F4EC',
@@ -346,13 +350,15 @@ export default function YourMealPage() {
             justifyContent: 'space-between',
             alignItems: 'baseline',
             marginBottom: '1rem',
+            flexWrap: 'wrap',
+            gap: '0.75rem',
           }}
         >
           <div>
             <h1
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
+                fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)',
                 fontWeight: 600,
                 color: '#17422E',
                 margin: 0,
@@ -372,7 +378,8 @@ export default function YourMealPage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 6,
-                padding: '0.45rem 0.9rem',
+                padding: '0.5rem 0.9rem',
+                minHeight: '40px',
                 backgroundColor: '#C46A3F',
                 color: '#ffffff',
                 borderRadius: 8,
@@ -390,7 +397,7 @@ export default function YourMealPage() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
             gap: '1rem',
           }}
         >
@@ -685,9 +692,11 @@ export default function YourMealPage() {
               backgroundColor: '#ffffff',
               borderRadius: 14,
               border: '1px solid #DCD5C4',
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 3vw, 1.5rem)',
               maxWidth: 480,
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
             }}
             onClick={(e) => e.stopPropagation()}

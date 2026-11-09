@@ -17,21 +17,48 @@ export default function MainLayout() {
   const [dismissBanner, setDismissBanner] = useState(false);
   const [showDbGuide, setShowDbGuide] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const hamburgerBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Close user menu on outside click
+  // Close menus on outside click or Escape key
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
+    function handleClickOutside(e: MouseEvent) {
+      // Close desktop user dropdown if clicked outside
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setUserMenuOpen(false);
       }
+      // Close mobile drawer if clicked outside the drawer and hamburger button
+      if (
+        mobileOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target as Node) &&
+        hamburgerBtnRef.current &&
+        !hamburgerBtnRef.current.contains(e.target as Node)
+      ) {
+        setMobileOpen(false);
+      }
     }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setUserMenuOpen(false);
+        setMobileOpen(false);
+        setShowDbGuide(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileOpen]);
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
+    setUserMenuOpen(false);
   }, [navigate]);
 
   const handleSignOut = async () => {
@@ -115,12 +142,12 @@ export default function MainLayout() {
           style={{
             maxWidth: 1280,
             margin: '0 auto',
-            padding: '0 1.5rem',
+            padding: '0 clamp(1rem, 3vw, 1.5rem)',
             height: 64,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '2rem',
+            gap: '1rem',
           }}
         >
           {/* Logo */}
@@ -143,6 +170,7 @@ export default function MainLayout() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
               <Leaf size={18} color="#ffffff" />
@@ -151,7 +179,7 @@ export default function MainLayout() {
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontWeight: 700,
-                fontSize: '1.2rem',
+                fontSize: 'clamp(1.05rem, 3.5vw, 1.25rem)',
                 color: '#17422E',
                 letterSpacing: '-0.02em',
               }}
@@ -161,20 +189,24 @@ export default function MainLayout() {
           </Link>
 
           {/* Desktop nav */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', flex: 1 }} className="hidden md:flex">
+          <nav
+            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+            className="hidden md:flex"
+            aria-label="Main Navigation"
+          >
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 style={({ isActive }) => ({
                   ...activeLinkStyle({ isActive }),
-                  padding: '0.4rem 0.85rem',
+                  padding: '0.45rem 0.9rem',
                   borderRadius: 8,
                   fontSize: '0.9rem',
                   textDecoration: 'none',
                   fontFamily: "'Inter', system-ui, sans-serif",
                   transition: 'color 150ms, background-color 150ms',
-                  backgroundColor: 'transparent',
+                  backgroundColor: isActive ? '#EFEADC' : 'transparent',
                 })}
                 className="hover:bg-[#EFEADC]"
               >
@@ -183,8 +215,8 @@ export default function MainLayout() {
             ))}
           </nav>
 
-          {/* Right side: auth */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+          {/* Desktop Auth */}
+          <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
             {!loading && (
               user ? (
                 <div ref={userMenuRef} style={{ position: 'relative' }}>
@@ -203,6 +235,7 @@ export default function MainLayout() {
                       fontFamily: "'Inter', system-ui, sans-serif",
                       fontSize: '0.875rem',
                       fontWeight: 500,
+                      minHeight: 40,
                     }}
                     aria-expanded={userMenuOpen}
                     aria-label="User menu"
@@ -336,47 +369,66 @@ export default function MainLayout() {
                     border: 'none',
                     cursor: 'pointer',
                     display: 'inline-block',
+                    minHeight: 38,
+                    lineHeight: '26px',
                   }}
                 >
                   Sign in
                 </Link>
               )
             )}
+          </div>
 
-            {/* Mobile hamburger */}
+          {/* Mobile Hamburger Button */}
+          <div className="flex md:hidden" style={{ alignItems: 'center' }}>
             <button
+              ref={hamburgerBtnRef}
+              type="button"
               onClick={() => setMobileOpen((v) => !v)}
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileOpen}
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 36,
-                height: 36,
+                minWidth: 44,
+                minHeight: 44,
+                width: 44,
+                height: 44,
                 border: '1px solid #DCD5C4',
                 borderRadius: 8,
-                backgroundColor: 'transparent',
+                backgroundColor: mobileOpen ? '#EFEADC' : '#ffffff',
                 cursor: 'pointer',
                 color: '#17422E',
+                transition: 'background-color 150ms ease',
               }}
-              className="md:hidden"
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile nav drawer */}
+        {/* Mobile Navigation Dropdown Menu */}
         {mobileOpen && (
           <div
+            ref={mobileMenuRef}
             style={{
-              borderTop: '1px solid #DCD5C4',
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
               backgroundColor: '#F7F4EC',
-              padding: '0.75rem 1.5rem 1rem',
+              borderTop: '1px solid #DCD5C4',
+              borderBottom: '1px solid #DCD5C4',
+              padding: '1rem clamp(1rem, 4vw, 1.5rem) 1.5rem',
+              boxShadow: '0 12px 30px rgba(23,66,46,0.12)',
+              maxHeight: 'calc(100vh - 65px)',
+              overflowY: 'auto',
+              zIndex: 60,
             }}
             className="md:hidden"
           >
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }} aria-label="Mobile Navigation">
               {NAV_ITEMS.map((item) => (
                 <NavLink
                   key={item.to}
@@ -384,19 +436,148 @@ export default function MainLayout() {
                   onClick={() => setMobileOpen(false)}
                   style={({ isActive }) => ({
                     ...activeLinkStyle({ isActive }),
-                    padding: '0.6rem 0.75rem',
+                    padding: '0.75rem 1rem',
                     borderRadius: 8,
                     textDecoration: 'none',
                     fontFamily: "'Inter', system-ui, sans-serif",
-                    fontSize: '0.95rem',
-                    display: 'block',
+                    fontSize: '1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    minHeight: 44,
                     backgroundColor: isActive ? '#EFEADC' : 'transparent',
+                    border: isActive ? '1px solid #DCD5C4' : '1px solid transparent',
                   })}
                 >
                   {item.label}
                 </NavLink>
               ))}
             </nav>
+
+            {/* Mobile Auth & Account links inside menu */}
+            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #DCD5C4' }}>
+              {!loading && (
+                user ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    <div
+                      style={{
+                        padding: '0.6rem 0.8rem',
+                        backgroundColor: '#EFEADC',
+                        borderRadius: 8,
+                        marginBottom: '0.35rem',
+                      }}
+                    >
+                      <p style={{ fontSize: '0.75rem', color: '#4A5B50', margin: 0 }}>Signed in as</p>
+                      <p
+                        style={{
+                          fontSize: '0.875rem',
+                          color: '#17422E',
+                          fontWeight: 600,
+                          margin: 0,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {user.email}
+                      </p>
+                    </div>
+
+                    <Link
+                      to="/profile"
+                      onClick={() => setMobileOpen(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.6rem',
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.95rem',
+                        color: '#17422E',
+                        textDecoration: 'none',
+                        borderRadius: 8,
+                        minHeight: 44,
+                        backgroundColor: '#ffffff',
+                        border: '1px solid #DCD5C4',
+                      }}
+                    >
+                      <User size={18} style={{ color: '#4A5B50' }} />
+                      <span>Profile & Saved Meals</span>
+                    </Link>
+
+                    <Link
+                      to="/onboarding"
+                      onClick={() => setMobileOpen(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.6rem',
+                        padding: '0.75rem 1rem',
+                        fontSize: '0.95rem',
+                        color: '#17422E',
+                        textDecoration: 'none',
+                        borderRadius: 8,
+                        minHeight: 44,
+                        backgroundColor: '#ffffff',
+                        border: '1px solid #DCD5C4',
+                      }}
+                    >
+                      <Leaf size={18} style={{ color: '#4A5B50' }} />
+                      <span>Nutrition Blueprint</span>
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        setMobileOpen(false);
+                        await handleSignOut();
+                      }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.6rem',
+                        padding: '0.75rem 1rem',
+                        border: '1px solid #f0cccc',
+                        borderRadius: 8,
+                        backgroundColor: '#ffffff',
+                        color: '#b03535',
+                        cursor: 'pointer',
+                        fontFamily: "'Inter', system-ui, sans-serif",
+                        fontSize: '0.95rem',
+                        minHeight: 44,
+                        textAlign: 'left',
+                        marginTop: '0.25rem',
+                      }}
+                    >
+                      <LogOut size={18} />
+                      Sign out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/auth"
+                    onClick={() => setMobileOpen(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      width: '100%',
+                      padding: '0.75rem 1.25rem',
+                      backgroundColor: '#17422E',
+                      color: '#ffffff',
+                      borderRadius: 8,
+                      textDecoration: 'none',
+                      fontFamily: "'Inter', system-ui, sans-serif",
+                      fontSize: '0.95rem',
+                      fontWeight: 600,
+                      minHeight: 44,
+                    }}
+                  >
+                    Sign in / Register
+                  </Link>
+                )
+              )}
+            </div>
           </div>
         )}
       </header>
@@ -411,7 +592,7 @@ export default function MainLayout() {
         style={{
           backgroundColor: '#17422E',
           color: '#ffffff',
-          padding: '2.5rem 1.5rem',
+          padding: '2.5rem clamp(1rem, 3vw, 1.5rem)',
           marginTop: 'auto',
         }}
       >
@@ -445,7 +626,7 @@ export default function MainLayout() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 'clamp(1.5rem, 5vw, 3rem)', flexWrap: 'wrap' }}>
             <div>
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
                 Explore
@@ -474,7 +655,7 @@ export default function MainLayout() {
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '0.5rem',
+            gap: '0.75rem',
           }}
         >
           <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', margin: 0 }}>
@@ -505,7 +686,7 @@ export default function MainLayout() {
             style={{
               backgroundColor: '#ffffff',
               borderRadius: 14,
-              padding: '2rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               maxWidth: 620,
               width: '100%',
               border: '1px solid #DCD5C4',

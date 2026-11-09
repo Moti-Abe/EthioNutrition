@@ -62,6 +62,9 @@ export default function AddToMealModal({
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
           maxWidth: 480,
           width: '100%',
+          maxHeight: '92vh',
+          display: 'flex',
+          flexDirection: 'column',
           overflow: 'hidden',
           fontFamily: "'Inter', system-ui, sans-serif",
         }}
@@ -70,19 +73,20 @@ export default function AddToMealModal({
         {/* Header */}
         <div
           style={{
-            padding: '1.25rem 1.5rem',
+            padding: '1rem 1.25rem',
             borderBottom: '1px solid #DCD5C4',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             backgroundColor: '#F7F4EC',
+            flexShrink: 0,
           }}
         >
           <div>
             <h3
               style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: '1.25rem',
+                fontSize: '1.2rem',
                 fontWeight: 600,
                 color: '#17422E',
                 margin: 0,
@@ -102,7 +106,12 @@ export default function AddToMealModal({
               border: 'none',
               cursor: 'pointer',
               color: '#4A5B50',
-              padding: 4,
+              padding: 8,
+              minWidth: 40,
+              minHeight: 40,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               borderRadius: 6,
             }}
             aria-label="Close modal"
@@ -112,7 +121,15 @@ export default function AddToMealModal({
         </div>
 
         {/* Content */}
-        <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div
+          style={{
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.25rem',
+            overflowY: 'auto',
+          }}
+        >
           {/* Preparation state selection */}
           {nutritionOptions.length > 1 && (
             <div>
@@ -189,19 +206,20 @@ export default function AddToMealModal({
               <span style={{ fontSize: '0.9rem', color: '#4A5B50', fontWeight: 500 }}>grams</span>
             </div>
             {/* Quick portion buttons */}
-            <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
               {[50, 100, 150, 200, 300].map((preset) => (
                 <button
                   key={preset}
                   type="button"
                   onClick={() => setGrams(preset)}
                   style={{
-                    padding: '0.25rem 0.6rem',
+                    padding: '0.35rem 0.65rem',
+                    minHeight: '36px',
                     borderRadius: 6,
                     border: '1px solid #DCD5C4',
                     backgroundColor: grams === preset ? '#17422E' : '#EFEADC',
                     color: grams === preset ? '#ffffff' : '#17422E',
-                    fontSize: '0.75rem',
+                    fontSize: '0.8rem',
                     fontWeight: 500,
                     cursor: 'pointer',
                   }}

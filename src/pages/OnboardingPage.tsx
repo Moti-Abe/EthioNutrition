@@ -97,13 +97,13 @@ export default function OnboardingPage() {
       style={{
         minHeight: '100vh',
         backgroundColor: '#F7F4EC',
-        padding: '3rem 1rem',
+        padding: 'clamp(1.5rem, 4vw, 3rem) 1rem',
         fontFamily: "'Inter', system-ui, sans-serif",
       }}
     >
       <div style={{ maxWidth: 840, margin: '0 auto' }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <span
             style={{
               padding: '4px 14px',
@@ -121,7 +121,7 @@ export default function OnboardingPage() {
           <h1
             style={{
               fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+              fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
               fontWeight: 600,
               color: '#17422E',
               margin: '0.5rem 0',
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
           >
             Set Your Nutrition Targets
           </h1>
-          <p style={{ color: '#4A5B50', fontSize: '1.05rem', maxWidth: 560, margin: '0 auto' }}>
+          <p style={{ color: '#4A5B50', fontSize: 'clamp(0.9rem, 2vw, 1.05rem)', maxWidth: 560, margin: '0 auto' }}>
             We calculate your Basal Metabolic Rate and daily targets based on validated Mifflin-St
             Jeor formulas.
           </p>
@@ -158,8 +158,8 @@ export default function OnboardingPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+              gap: '1.5rem',
               alignItems: 'start',
             }}
           >
@@ -168,7 +168,7 @@ export default function OnboardingPage() {
               style={{
                 backgroundColor: '#ffffff',
                 borderRadius: 14,
-                padding: '2rem',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
                 border: '1px solid #DCD5C4',
                 boxShadow: '0 2px 8px rgba(23,66,46,0.04)',
                 display: 'flex',
@@ -376,7 +376,7 @@ export default function OnboardingPage() {
                 >
                   Nutritional Goal
                 </label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                   {[
                     { key: 'lose', label: 'Weight Loss (-20%)' },
                     { key: 'maintain', label: 'Maintain (0%)' },
@@ -387,8 +387,9 @@ export default function OnboardingPage() {
                       type="button"
                       onClick={() => setGoal(g.key as BodyMetrics['goal'])}
                       style={{
-                        flex: 1,
+                        flex: '1 1 90px',
                         padding: '0.6rem 0.4rem',
+                        minHeight: '40px',
                         borderRadius: 8,
                         border: '1px solid #DCD5C4',
                         backgroundColor: goal === g.key ? '#17422E' : '#F7F4EC',
@@ -412,11 +413,11 @@ export default function OnboardingPage() {
                 backgroundColor: '#17422E',
                 color: '#ffffff',
                 borderRadius: 14,
-                padding: '2rem',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
                 boxShadow: '0 4px 20px rgba(23,66,46,0.15)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1.5rem',
+                gap: '1.25rem',
               }}
             >
               <div>
@@ -486,47 +487,47 @@ export default function OnboardingPage() {
               </div>
 
               {/* 3 Macro Cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', textAlign: 'center' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 75px), 1fr))', gap: '0.5rem', textAlign: 'center' }}>
                 <div
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.75rem 0.4rem',
                     borderRadius: 8,
                     border: '1px solid rgba(255,255,255,0.12)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#e8956a' }}>
+                  <div style={{ fontSize: 'clamp(1.1rem, 3vw, 1.25rem)', fontWeight: 700, color: '#e8956a' }}>
                     {targets.protein_g}g
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Protein (1.6g/kg)</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Protein (1.6g/kg)</div>
                 </div>
 
                 <div
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.75rem 0.4rem',
                     borderRadius: 8,
                     border: '1px solid rgba(255,255,255,0.12)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'clamp(1.1rem, 3vw, 1.25rem)', fontWeight: 700, color: '#ffffff' }}>
                     {targets.carbs_g}g
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Carbs (Remainder)</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Carbs (Remainder)</div>
                 </div>
 
                 <div
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.08)',
-                    padding: '0.75rem 0.5rem',
+                    padding: '0.75rem 0.4rem',
                     borderRadius: 8,
                     border: '1px solid rgba(255,255,255,0.12)',
                   }}
                 >
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: 'clamp(1.1rem, 3vw, 1.25rem)', fontWeight: 700, color: '#ffffff' }}>
                     {targets.fat_g}g
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.7)' }}>Fat (25% kcal)</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.7)' }}>Fat (25% kcal)</div>
                 </div>
               </div>
 

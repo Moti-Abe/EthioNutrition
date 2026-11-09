@@ -180,7 +180,7 @@ export default function AuthPage() {
           borderRadius: 14,
           border: '1px solid #DCD5C4',
           boxShadow: '0 4px 20px rgba(23,66,46,0.08)',
-          padding: '2rem',
+          padding: 'clamp(1.25rem, 4vw, 2rem)',
         }}
       >
         {/* Mode Tabs (Sign In / Register) */}

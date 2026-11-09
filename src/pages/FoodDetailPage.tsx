@@ -45,11 +45,20 @@ export default function FoodDetailPage() {
   const computed = selectedNutrition ? calculateNutrition(selectedNutrition, grams) : null;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8" style={{ fontFamily: 'Inter, sans-serif' }}>
       {/* Back */}
       <Link
         to="/foods"
-        style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#4A5B50', fontSize: '14px', textDecoration: 'none', marginBottom: '24px' }}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          color: '#4A5B50',
+          fontSize: '14px',
+          textDecoration: 'none',
+          marginBottom: '20px',
+          padding: '4px 0',
+        }}
       >
         <ArrowLeft size={15} /> Back to Foods
       </Link>
@@ -262,6 +271,7 @@ export default function FoodDetailPage() {
               style={{
                 width: '100%',
                 padding: '12px',
+                minHeight: '44px',
                 background: '#17422E',
                 color: 'white',
                 border: 'none',
@@ -288,9 +298,10 @@ export default function FoodDetailPage() {
       )}
 
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .food-detail-grid {
             grid-template-columns: 1fr !important;
+            gap: 20px !important;
           }
         }
       `}</style>
