@@ -188,195 +188,204 @@ export default function MainLayout() {
             </span>
           </Link>
 
-          {/* Desktop nav - ONLY on desktop (>= 768px) */}
-          <nav
+          {/* Desktop Nav & Auth (grouped to the right) - ONLY on desktop (>= 768px) */}
+          <div
             className="nav-desktop-only"
-            style={{ alignItems: 'center', gap: '0.25rem' }}
-            aria-label="Main Navigation"
+            style={{
+              alignItems: 'center',
+              gap: '1.25rem',
+              marginLeft: 'auto',
+            }}
           >
-            {NAV_ITEMS.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                style={({ isActive }) => ({
-                  ...activeLinkStyle({ isActive }),
-                  padding: '0.45rem 0.9rem',
-                  borderRadius: 8,
-                  fontSize: '0.9rem',
-                  textDecoration: 'none',
-                  fontFamily: "'Inter', system-ui, sans-serif",
-                  transition: 'color 150ms, background-color 150ms',
-                  backgroundColor: isActive ? '#EFEADC' : 'transparent',
-                })}
-                className="hover:bg-[#EFEADC]"
-              >
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
+            {/* 3 Nav links on desktop */}
+            <nav
+              style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+              aria-label="Main Navigation"
+            >
+              {NAV_ITEMS.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  style={({ isActive }) => ({
+                    ...activeLinkStyle({ isActive }),
+                    padding: '0.45rem 0.9rem',
+                    borderRadius: 8,
+                    fontSize: '0.9rem',
+                    textDecoration: 'none',
+                    fontFamily: "'Inter', system-ui, sans-serif",
+                    transition: 'color 150ms, background-color 150ms',
+                    backgroundColor: isActive ? '#EFEADC' : 'transparent',
+                  })}
+                  className="hover:bg-[#EFEADC]"
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
 
-          {/* Desktop Auth - ONLY on desktop (>= 768px) */}
-          <div className="nav-desktop-only" style={{ alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
-            {!loading && (
-              user ? (
-                <div ref={userMenuRef} style={{ position: 'relative' }}>
-                  <button
-                    onClick={() => setUserMenuOpen((v) => !v)}
+            {/* Desktop Auth */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
+              {!loading && (
+                user ? (
+                  <div ref={userMenuRef} style={{ position: 'relative' }}>
+                    <button
+                      onClick={() => setUserMenuOpen((v) => !v)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.4rem 0.75rem',
+                        border: '1px solid #DCD5C4',
+                        borderRadius: 8,
+                        backgroundColor: '#ffffff',
+                        color: '#17422E',
+                        cursor: 'pointer',
+                        fontFamily: "'Inter', system-ui, sans-serif",
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        minHeight: 40,
+                      }}
+                      aria-expanded={userMenuOpen}
+                      aria-label="User menu"
+                    >
+                      <span
+                        style={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: '50%',
+                          backgroundColor: '#17422E',
+                          color: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '0.8rem',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {user.email?.[0]?.toUpperCase() ?? <User size={14} />}
+                      </span>
+                      <ChevronDown size={14} style={{ color: '#4A5B50' }} />
+                    </button>
+
+                    {userMenuOpen && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: 'calc(100% + 8px)',
+                          right: 0,
+                          backgroundColor: '#ffffff',
+                          border: '1px solid #DCD5C4',
+                          borderRadius: 10,
+                          boxShadow: '0 4px 16px rgba(23,66,46,0.10)',
+                          minWidth: 200,
+                          overflow: 'hidden',
+                          zIndex: 100,
+                        }}
+                      >
+                        <div
+                          style={{
+                            padding: '0.75rem 1rem',
+                            borderBottom: '1px solid #DCD5C4',
+                          }}
+                        >
+                          <p style={{ fontSize: '0.75rem', color: '#4A5B50', margin: 0 }}>Signed in as</p>
+                          <p
+                            style={{
+                              fontSize: '0.875rem',
+                              color: '#17422E',
+                              fontWeight: 600,
+                              margin: 0,
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {user.email}
+                          </p>
+                        </div>
+                        <Link
+                          to="/profile"
+                          onClick={() => setUserMenuOpen(false)}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            padding: '0.65rem 1rem',
+                            fontSize: '0.85rem',
+                            color: '#17422E',
+                            textDecoration: 'none',
+                            borderBottom: '1px solid #EFEADC',
+                          }}
+                          className="hover:bg-[#F7F4EC]"
+                        >
+                          <User size={15} style={{ color: '#4A5B50' }} />
+                          <span>Profile & Saved Meals</span>
+                        </Link>
+                        <Link
+                          to="/onboarding"
+                          onClick={() => setUserMenuOpen(false)}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            padding: '0.65rem 1rem',
+                            fontSize: '0.85rem',
+                            color: '#17422E',
+                            textDecoration: 'none',
+                            borderBottom: '1px solid #EFEADC',
+                          }}
+                          className="hover:bg-[#F7F4EC]"
+                        >
+                          <Leaf size={15} style={{ color: '#4A5B50' }} />
+                          <span>Nutrition Blueprint</span>
+                        </Link>
+                        <button
+                          onClick={handleSignOut}
+                          style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            padding: '0.75rem 1rem',
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            color: '#b03535',
+                            cursor: 'pointer',
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontSize: '0.875rem',
+                            textAlign: 'left',
+                          }}
+                        >
+                          <LogOut size={16} />
+                          Sign out
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to="/auth"
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      padding: '0.4rem 0.75rem',
-                      border: '1px solid #DCD5C4',
+                      padding: '0.45rem 1.1rem',
+                      backgroundColor: '#17422E',
+                      color: '#ffffff',
                       borderRadius: 8,
-                      backgroundColor: '#ffffff',
-                      color: '#17422E',
-                      cursor: 'pointer',
+                      textDecoration: 'none',
                       fontFamily: "'Inter', system-ui, sans-serif",
                       fontSize: '0.875rem',
                       fontWeight: 500,
-                      minHeight: 40,
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'inline-block',
+                      minHeight: 38,
+                      lineHeight: '26px',
                     }}
-                    aria-expanded={userMenuOpen}
-                    aria-label="User menu"
                   >
-                    <span
-                      style={{
-                        width: 28,
-                        height: 28,
-                        borderRadius: '50%',
-                        backgroundColor: '#17422E',
-                        color: '#fff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '0.8rem',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {user.email?.[0]?.toUpperCase() ?? <User size={14} />}
-                    </span>
-                    <ChevronDown size={14} style={{ color: '#4A5B50' }} />
-                  </button>
-
-                  {userMenuOpen && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 'calc(100% + 8px)',
-                        right: 0,
-                        backgroundColor: '#ffffff',
-                        border: '1px solid #DCD5C4',
-                        borderRadius: 10,
-                        boxShadow: '0 4px 16px rgba(23,66,46,0.10)',
-                        minWidth: 200,
-                        overflow: 'hidden',
-                        zIndex: 100,
-                      }}
-                    >
-                      <div
-                        style={{
-                          padding: '0.75rem 1rem',
-                          borderBottom: '1px solid #DCD5C4',
-                        }}
-                      >
-                        <p style={{ fontSize: '0.75rem', color: '#4A5B50', margin: 0 }}>Signed in as</p>
-                        <p
-                          style={{
-                            fontSize: '0.875rem',
-                            color: '#17422E',
-                            fontWeight: 600,
-                            margin: 0,
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                          }}
-                        >
-                          {user.email}
-                        </p>
-                      </div>
-                      <Link
-                        to="/profile"
-                        onClick={() => setUserMenuOpen(false)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          padding: '0.65rem 1rem',
-                          fontSize: '0.85rem',
-                          color: '#17422E',
-                          textDecoration: 'none',
-                          borderBottom: '1px solid #EFEADC',
-                        }}
-                        className="hover:bg-[#F7F4EC]"
-                      >
-                        <User size={15} style={{ color: '#4A5B50' }} />
-                        <span>Profile & Saved Meals</span>
-                      </Link>
-                      <Link
-                        to="/onboarding"
-                        onClick={() => setUserMenuOpen(false)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          padding: '0.65rem 1rem',
-                          fontSize: '0.85rem',
-                          color: '#17422E',
-                          textDecoration: 'none',
-                          borderBottom: '1px solid #EFEADC',
-                        }}
-                        className="hover:bg-[#F7F4EC]"
-                      >
-                        <Leaf size={15} style={{ color: '#4A5B50' }} />
-                        <span>Nutrition Blueprint</span>
-                      </Link>
-                      <button
-                        onClick={handleSignOut}
-                        style={{
-                          width: '100%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          padding: '0.75rem 1rem',
-                          border: 'none',
-                          backgroundColor: 'transparent',
-                          color: '#b03535',
-                          cursor: 'pointer',
-                          fontFamily: "'Inter', system-ui, sans-serif",
-                          fontSize: '0.875rem',
-                          textAlign: 'left',
-                        }}
-                      >
-                        <LogOut size={16} />
-                        Sign out
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  to="/auth"
-                  style={{
-                    padding: '0.45rem 1.1rem',
-                    backgroundColor: '#17422E',
-                    color: '#ffffff',
-                    borderRadius: 8,
-                    textDecoration: 'none',
-                    fontFamily: "'Inter', system-ui, sans-serif",
-                    fontSize: '0.875rem',
-                    fontWeight: 500,
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'inline-block',
-                    minHeight: 38,
-                    lineHeight: '26px',
-                  }}
-                >
-                  Sign in
-                </Link>
-              )
-            )}
+                    Sign in
+                  </Link>
+                )
+              )}
+            </div>
           </div>
 
           {/* Mobile Navbar Controls - ONLY on small screens (< 768px):

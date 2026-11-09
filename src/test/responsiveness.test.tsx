@@ -87,7 +87,7 @@ describe('Responsive Navigation & Viewport Testing', () => {
 
     // Desktop nav container is marked nav-desktop-only (hidden via CSS on mobile)
     const desktopNav = screen.getByRole('navigation', { name: /Main Navigation/i });
-    expect(desktopNav).toHaveClass('nav-desktop-only');
+    expect(desktopNav.closest('.nav-desktop-only')).toBeInTheDocument();
   });
 
   it('toggles mobile menu dropdown when hamburger button is clicked', async () => {
