@@ -49,3 +49,4 @@ export async function fetchCategories(): Promise<Category[]> {
     return fallback;
   }
 }
+

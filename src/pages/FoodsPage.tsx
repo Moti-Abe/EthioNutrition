@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, X, Check, RotateCcw } from 'lucide-react';
+import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, X, RotateCcw } from 'lucide-react';
 import { fetchFoods, fetchFoodGroups } from '../services/foods';
 import { fetchCategories } from '../services/categories';
 import FoodCard from '../components/food/FoodCard';
@@ -22,7 +22,7 @@ export default function FoodsPage() {
     pageSize: PAGE_SIZE,
   });
   const [searchInput, setSearchInput] = useState('');
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['foods', filters],
@@ -48,10 +48,6 @@ export default function FoodsPage() {
   const hasActiveFilters = Boolean(
     filters.search || filters.foodGroup || selectedCategoryIds.length > 0
   );
-  const activeFilterCount =
-    (filters.foodGroup ? 1 : 0) +
-    selectedCategoryIds.length +
-    (filters.search ? 1 : 0);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,7 +103,7 @@ export default function FoodsPage() {
       </div>
 
       {/* Search + Filter controls bar */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
         <form onSubmit={handleSearch} style={{ flex: '1', minWidth: '240px', position: 'relative' }}>
           <Search
             size={16}
@@ -171,26 +167,10 @@ export default function FoodsPage() {
             cursor: 'pointer',
             fontSize: '14px',
             fontWeight: 500,
-            transition: 'all 150ms ease',
           }}
         >
           <SlidersHorizontal size={15} />
-          <span>Filters</span>
-          {activeFilterCount > 0 && (
-            <span
-              style={{
-                backgroundColor: showFilters ? 'rgba(255,255,255,0.25)' : '#C46A3F',
-                color: '#ffffff',
-                borderRadius: '999px',
-                padding: '1px 7px',
-                fontSize: '11px',
-                fontWeight: 700,
-                marginLeft: '2px',
-              }}
-            >
-              {activeFilterCount}
-            </span>
-          )}
+          Filters
         </button>
 
         <select
@@ -217,175 +197,88 @@ export default function FoodsPage() {
         </select>
       </div>
 
-      {/* Expandable filters panel */}
+      {/* Expandable filters */}
       {showFilters && (
         <div
           style={{
             background: 'white',
             border: '1px solid #DCD5C4',
-            borderRadius: '12px',
+            borderRadius: '10px',
             padding: '20px',
-            marginBottom: '16px',
+            marginBottom: '20px',
             display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-            boxShadow: '0 2px 8px rgba(23,66,46,0.04)',
+            gap: '24px',
+            flexWrap: 'wrap',
           }}
         >
-          {/* Section 1: Food Group */}
           <div>
-            <div
+            <label
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '10px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#4A5B50',
+                display: 'block',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
               }}
             >
-              <label
-                style={{
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  color: '#17422E',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                }}
-              >
-                Food Group
-              </label>
-              {filters.foodGroup && (
-                <button
-                  type="button"
-                  onClick={() => updateFilter('foodGroup', '')}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#C46A3F',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    padding: 0,
-                  }}
-                >
-                  Clear Group
-                </button>
-              )}
-            </div>
-
+              Food Group
+            </label>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => updateFilter('foodGroup', '')}
                 style={{
-                  padding: '6px 14px',
+                  padding: '5px 12px',
                   borderRadius: '999px',
                   border: '1px solid',
                   borderColor: filters.foodGroup === '' ? '#17422E' : '#DCD5C4',
                   background: filters.foodGroup === '' ? '#17422E' : 'white',
                   color: filters.foodGroup === '' ? 'white' : '#4A5B50',
                   fontSize: '13px',
-                  fontWeight: filters.foodGroup === '' ? 600 : 500,
                   cursor: 'pointer',
-                  transition: 'all 150ms ease',
                 }}
               >
                 All
               </button>
-              {foodGroups.map((group) => {
-                const isSelected = filters.foodGroup === group;
-                return (
-                  <button
-                    key={group}
-                    type="button"
-                    onClick={() => updateFilter('foodGroup', isSelected ? '' : group)}
-                    style={{
-                      padding: '6px 14px',
-                      borderRadius: '999px',
-                      border: '1px solid',
-                      borderColor: isSelected ? '#17422E' : '#DCD5C4',
-                      background: isSelected ? '#17422E' : 'white',
-                      color: isSelected ? 'white' : '#4A5B50',
-                      fontSize: '13px',
-                      fontWeight: isSelected ? 600 : 500,
-                      cursor: 'pointer',
-                      textTransform: 'capitalize',
-                      transition: 'all 150ms ease',
-                    }}
-                  >
-                    {group}
-                  </button>
-                );
-              })}
+              {foodGroups.map((group) => (
+                <button
+                  key={group}
+                  type="button"
+                  onClick={() => updateFilter('foodGroup', group === filters.foodGroup ? '' : group)}
+                  style={{
+                    padding: '5px 12px',
+                    borderRadius: '999px',
+                    border: '1px solid',
+                    borderColor: filters.foodGroup === group ? '#17422E' : '#DCD5C4',
+                    background: filters.foodGroup === group ? '#17422E' : 'white',
+                    color: filters.foodGroup === group ? 'white' : '#4A5B50',
+                    fontSize: '13px',
+                    cursor: 'pointer',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  {group}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Section 2: Food Categories (Multi-Select with OR logic) */}
-          <div
-            style={{
-              paddingTop: '16px',
-              borderTop: '1px solid #EFEADC',
-            }}
-          >
-            <div
+          <div>
+            <label
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '6px',
-                flexWrap: 'wrap',
-                gap: '6px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#4A5B50',
+                display: 'block',
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <label
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    color: '#17422E',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em',
-                  }}
-                >
-                  Categories
-                </label>
-                <span
-                  style={{
-                    fontSize: '11px',
-                    color: '#4A5B50',
-                    backgroundColor: '#F7F4EC',
-                    border: '1px solid #DCD5C4',
-                    padding: '2px 8px',
-                    borderRadius: '6px',
-                    fontWeight: 500,
-                  }}
-                >
-                  Multi-select (OR logic)
-                </span>
-              </div>
-
-              {selectedCategoryIds.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => updateFilter('categoryIds', [])}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#C46A3F',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    padding: 0,
-                  }}
-                >
-                  Clear Categories ({selectedCategoryIds.length})
-                </button>
-              )}
-            </div>
-
-            <p style={{ fontSize: '12px', color: '#4A5B50', margin: '0 0 10px 0' }}>
-              Select one or multiple categories to show foods matching any of your selections.
-            </p>
-
+              Categories
+            </label>
             <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {categories.map((cat) => {
                 const isSelected = selectedCategoryIds.includes(cat.id);
@@ -395,40 +288,43 @@ export default function FoodsPage() {
                     type="button"
                     onClick={() => toggleCategory(cat.id)}
                     style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '7px 15px',
+                      padding: '5px 12px',
                       borderRadius: '999px',
                       border: '1px solid',
-                      borderColor: isSelected ? '#17422E' : '#DCD5C4',
-                      background: isSelected ? '#17422E' : '#ffffff',
-                      color: isSelected ? '#ffffff' : '#17422E',
+                      borderColor: isSelected ? '#C46A3F' : '#DCD5C4',
+                      background: isSelected ? '#C46A3F' : 'white',
+                      color: isSelected ? 'white' : '#4A5B50',
                       fontSize: '13px',
-                      fontWeight: isSelected ? 600 : 500,
                       cursor: 'pointer',
-                      transition: 'all 150ms ease',
-                      boxShadow: isSelected ? '0 2px 6px rgba(23,66,46,0.18)' : 'none',
                     }}
                   >
-                    {isSelected ? (
-                      <Check size={13} strokeWidth={2.5} />
-                    ) : (
-                      <span
-                        style={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: '50%',
-                          backgroundColor: '#DCD5C4',
-                        }}
-                      />
-                    )}
-                    <span>{cat.name}</span>
+                    {cat.name}
                   </button>
                 );
               })}
             </div>
           </div>
+
+          {(filters.foodGroup || selectedCategoryIds.length > 0) && (
+            <button
+              type="button"
+              onClick={() => setFilters((f) => ({ ...f, foodGroup: '', categoryIds: [], page: 1 }))}
+              style={{
+                alignSelf: 'flex-end',
+                padding: '5px 12px',
+                fontSize: '13px',
+                color: '#C46A3F',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <X size={12} /> Clear filters
+            </button>
+          )}
         </div>
       )}
 
